@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="js/Loco.js" type="text/javascript"></script>
+    <script src="js/dvl.js" type="text/javascript"></script>
+</head>
+<body>
+<canvas id='canvas'></canvas>
+<input id="fileupload" type="file" onchange="LoadAndDisplayFile(this.files[0])">
+</body>
+<script type="text/javascript" defer>
+    /*
+     * Create a new instance of jDVL and connect it to my canvas
+     * and start a rendering loop so that I can see changes to my
+     * scene as they occur
+     */
+    var oDvl = Dvl.Create("canvas", true, {configureCanvas: true});
+
+    LoadAndDisplayFile = function (file) {
+        oDvl.Helpers.LoadLocalFile(file, null, function (fileToken, pwd) {
+            var currentSceneId = oDvl.Core.LoadScene(fileToken, pwd);
+            oDvl.Renderer.AttachScene(currentSceneId);
+            oDvl.Scene.Release(currentSceneId);
+            oDvl.Helpers.Refresh();
+        }, null, null);
+        console.log("testttttttttttttt");
+        console.log(file);
+    };
+
+    // Basic Gesture Handling using the Loco library
+    //最基本的手势动作识别处理
+    var track = new sap.ve.Loco(oDvl, oDvl.canvas, true);
+
+    // Handle a node selection changed event
+    oDvl.Client.OnNodeSelectionChanged = function (clientId, sceneId, numberOfSelectedNodes, idFirstSelectedNode) {
+        console.log(numberOfSelectedNodes);
+        if (numberOfSelectedNodes > 0) {
+            track.lastSelectedNodeId = idFirstSelectedNode;
+        } else {
+            track.lastSelectedNodeId = null;
+        }
+    };
+
+    var si = oDvl.Scene.RetrieveSceneInfo(sceneToken,
+            DvlEnums.DVLSCENEINFO.DVLSCENEINFO_SELECTED);
+    for (var i = 0; i < si.length; i++)
+    {
+        var selectedId = si.SelectedNodes[i];
+        // do something with childId
+    };
+    //获取stephemodel views
+    var procs = oDvl.Scene.RetrieveProcedures(sceneToken);
+    console.log("The scene has %d procedures and %d portfolios",
+            procs.procedures.length, procs.portfolios.length);
+
+    for (var i = 0; i < procs.procedures.length; i++)
+    {
+        var pr = procs.procedures[i];
+        console.log("procedure%d: name = '%s', steps = %d\n", i, pr.name, pr.steps.length);
+    }
+
+    for (var i = 0; i < procs.portfolios.length; i++)
+    {
+        var po = procs.portfolios[i];
+        console.log("portfolio%d: name = '%s', model views = %d\n", i, po.name, po.steps.length);
+    }
+</script>
+</html>

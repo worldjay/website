@@ -1,0 +1,23 @@
+<ion-view title="Charts">
+    <ion-content ng-controller="ddata" overflow-scroll="true" padding="false" class="has-header">
+        <div class="card">
+            <div class="item item-divider">直线图</div>
+            <div class="item item-body">
+             <div><canvas id="line" class="chart chart-line" chart-data="data"
+                          chart-labels="labels" chart-legend="true" chart-series="series">
+             </canvas>
+             </div>
+            </div>
+        </div>
+        <div class="card" onload="initialize()">
+            <div class="item item-divider">dashboard</div>
+            <div class="item item-body">
+                <span id="memoryGaugeContainer"></span>
+                <span id="cpuGaugeContainer"></span>
+                <span id="networkGaugeContainer"></span>
+                <span id="testGaugeContainer"></span>
+              <!--  <div id="chart_div" style="width: 400px; height: 120px;"></div>-->
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
