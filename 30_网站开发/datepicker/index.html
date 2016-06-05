@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- 引入 jQuery Mobile 样式 -->
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+    <!-- 引入 jQuery 库 -->
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- 引入 jQuery Mobile 库 -->
+    <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/jquery.mobile.datepicker.css">
+    <link rel="stylesheet" href="bootstrap/css/jquery.mobile.datepicker.theme.css">
+    <link rel="stylesheet" href="bootstrap/css/style.css">
+    <!--<script src="bootstrap/js/jquery.mobile.datepicker.js"></script>-->
+    <script src="bootstrap/js/datepicker.js"></script>
+</head>
+
+<body>
+<div data-role="page">
+ 
+    <div role="main" class="ui-content">
+        <div class="container">
+            <div class="reqtype">
+                <select name="reqType" id="day">
+                    <option value="1">年假</option>
+                    <option value="2">事假</option>
+                    <option value="3">病假</option>
+                </select>
+            </div>
+            <div id="datepicker">
+            </div>
+            <div class="buttonright">
+                <input type="button" data-icon="delete" data-iconpos="left" data-mini="true" value="删除"
+                       data-inline="true">
+            </div>
+        </div>
+        <input type="button" data-icon="plus" value="添加" id="addNew">
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4>footer</h4>
+    </div>
+</div>
+
+
+<script>
+//    $(document).ready(function() {
+//        $("#leaveDate").datepicker({
+//            onSelect: function (dates) {
+//                console.log(dates);
+//
+////                leaveDates.push($('#leaveDate').val());
+////                console.log($('#leaveDate').val());
+////                $('#leaveDate').val("");
+//            },
+//            selectWeek: true,
+//            inline: true,
+//            startDate: '01/01/2000',
+//        });
+//    });
+
+
+    $(function () {
+        var leaveDates = new Array();
+        $( "#datepicker" ).datepicker({
+            onSelect: function(dateText, inst){
+                //检查数组中不存在就放入
+                if ($.inArray(dateText,leaveDates) == -1 ){
+                    leaveDates.push(dateText)
+                    console.log(leaveDates)
+                }
+
+
+            },
+        });
+        $('#addNew').click(function(){
+        })
+    })
+</script>
+</body>
+</html>
